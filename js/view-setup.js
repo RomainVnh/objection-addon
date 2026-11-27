@@ -26,8 +26,8 @@ export function homeView() {
       <div class="home">
         <div class="home-card" role="img" aria-label="Objection! card back"></div>
         <div class="home-text">
-          <div class="eyebrow">Courtroom timer</div>
-          <p class="muted">Player sign-up, timed pleas, objections and voting: the judge runs the round from a single phone.</p>
+          <div class="eyebrow">Digital Gestion</div>
+          <p class="muted">Every opinion goes on trial</p>
           <div class="home-actions">
             ${inGame ? `<button class="btn primary big block" data-act="resume">Resume · round ${S.roundNo}</button>` : ''}
             <button class="btn ${inGame ? '' : 'primary big'} block" data-act="new-game">${inGame ? 'New game' : 'Start'}</button>

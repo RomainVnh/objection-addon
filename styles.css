@@ -962,7 +962,6 @@ body.fast-rays .rays::before { animation-duration: 16s; }
 .confetti i { position: absolute; top: -20px; width: 10px; height: 10px; rotate: 45deg; animation: fall linear forwards; }
 @keyframes fall { to { translate: var(--dx, 0) 110dvh; rotate: 765deg; } }
 
-.noscript { padding: 30px; text-align: center; }
 
 /* ---------- Deux colonnes dès qu'il y a la place ---------- */
 
