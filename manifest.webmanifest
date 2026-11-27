@@ -1,0 +1,22 @@
+{
+  "id": "./",
+  "name": "Objection ! · Every opinion goes on trial",
+  "short_name": "Objection !",
+  "description": "Timekeeping, arguments and Objection ! Welcome to the card game where every opinion goes on trial. Play with your friends and family, and see who can make the best arguments. Be strategic and persuasive, and win the case !",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "any",
+  "background_color": "#0c1533",
+  "theme_color": "#0c1533",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
