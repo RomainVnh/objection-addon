@@ -1,7 +1,7 @@
 /* Animations plein écran des cartes jouées, et confettis de la victoire. */
 import { S, ui } from './state.js';
 import { cardImg } from './data.js';
-import { $, esc, nameOf, buzz } from './utils.js';
+import { $, esc, nameOf, buzz, ordinal } from './utils.js';
 import { sfx } from './sound.js';
 
 /**
@@ -36,8 +36,6 @@ export function playObjectionFx(line, sub) {
   playCardFx({ card: 'objection', line: esc(line), sub: esc(sub), tone: 'red', sound: 'objection', vibrate: [120, 60, 220], flash: true, shake: true });
 }
 
-const ordinal = (n) => (n === 1 ? 're' : 'e');
-
 /** Animation d'une carte Défi « immédiat » au moment où on la note. */
 export function playDefiFx(id) {
   const r = S.round;
@@ -45,11 +43,11 @@ export function playDefiFx(id) {
   const st = S.settings;
   const pos = r.positions[id];
   const fx = {
-    'temps-reduit': { motion: 'drop', tone: 'hot', badge: `${st.reducedSeconds} s`, line: `${who} n’aura que ${st.reducedSeconds} secondes`, sound: 'timeDown', shake: true, vibrate: [60, 40, 120] },
-    prolongation: { motion: 'grow', badge: `${st.prolongSeconds} s`, line: `${who} aura ${st.prolongSeconds} secondes`, sound: 'powerUp' },
-    'voix-double': { motion: 'double', badge: '×2', line: `Le vote de ${who} compte double`, sound: 'double', vibrate: [50, 60, 50] },
-    'ordre-de-passage': pos && { motion: 'slide', tone: 'blue', badge: `${pos}<sup>${ordinal(pos)}</sup>`, line: `${who} plaidera en ${pos}${ordinal(pos)} position`, sound: 'swish' },
-    'temoin-surprise': r.witness[id] && { motion: 'flip', tone: 'blue', line: `${nameOf(r.witness[id])} témoignera pour ${who}`, sub: `${st.witnessSeconds} secondes, juste avant son tour`, sound: 'swish' },
+    'temps-reduit': { motion: 'drop', tone: 'hot', badge: `${st.reducedSeconds} s`, line: `${who} will only have ${st.reducedSeconds} seconds`, sound: 'timeDown', shake: true, vibrate: [60, 40, 120] },
+    prolongation: { motion: 'grow', badge: `${st.prolongSeconds} s`, line: `${who} will have ${st.prolongSeconds} seconds`, sound: 'powerUp' },
+    'voix-double': { motion: 'double', badge: '×2', line: `${who}’s vote counts double`, sound: 'double', vibrate: [50, 60, 50] },
+    'ordre-de-passage': pos && { motion: 'slide', tone: 'blue', badge: ordinal(pos), line: `${who} will plead in ${ordinal(pos)} position`, sound: 'swish' },
+    'temoin-surprise': r.witness[id] && { motion: 'flip', tone: 'blue', line: `${nameOf(r.witness[id])} will testify for ${who}`, sub: `${st.witnessSeconds} seconds, just before their turn`, sound: 'swish' },
   }[r.defis[id]];
   if (fx) playCardFx({ card: r.defis[id], ...fx });
 }

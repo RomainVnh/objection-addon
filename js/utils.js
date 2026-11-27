@@ -7,7 +7,9 @@ export const uid = () => Math.random().toString(36).slice(2, 9);
 export const player = (id) => S.players.find((p) => p.id === id);
 export const nameOf = (id) => esc(player(id)?.name ?? '?');
 export const secs = (ms) => Math.max(0, Math.ceil(ms / 1000));
-export const plural = (n, w) => `${n} ${w}${n > 1 && !/[sx]$/.test(w) ? 's' : ''}`;
+export const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+/** 1st, 2nd, 3rd, 4th… */
+export const ordinal = (n) => `${n}<sup>${{ 1: 'st', 2: 'nd', 3: 'rd' }[n] || 'th'}</sup>`;
 /** Losanges de progression : faits, en cours, à venir. */
 export const diamonds = (count, current) => `<div class="diamonds">${Array.from({ length: count }, (_, i) => `<i class="${i < current ? 'done' : i === current ? 'now' : ''}"></i>`).join('')}</div>`;
 

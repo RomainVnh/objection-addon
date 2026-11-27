@@ -13,7 +13,7 @@ export const topbar = (eyebrow, title, left = '', right = '', cls = '') => `
   </header>`;
 
 export const menuBtn = (sheet = 'menu') => `<button class="icon-btn" data-act="open-sheet" data-sheet="${sheet}" aria-label="Menu">${ICON.menu}</button>`;
-export const homeBtn = () => `<button class="icon-btn" data-act="home" aria-label="Accueil">${ICON.back}</button>`;
+export const homeBtn = () => `<button class="icon-btn" data-act="home" aria-label="Home">${ICON.back}</button>`;
 export const frame = (title, body, extra = '') => `<section class="frame" ${extra}>${title ? `<h2 class="frame-title">${title}</h2>` : ''}${body}</section>`;
 
 /**

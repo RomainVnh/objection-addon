@@ -20,28 +20,28 @@ export const DEFAULTS = {
 
 /** Les 14 types de cartes Défi. « immediat » : la carte change le chrono ou l'ordre de passage. */
 export const DEFIS = [
-  { id: 'temps-reduit', nom: 'Temps réduit', immediat: true, effet: 'Tu n’as que 10 secondes au lieu de 30 pour plaider.' },
-  { id: 'prolongation', nom: 'Prolongation', immediat: true, effet: 'Tu as 40 secondes au lieu de 30.' },
-  { id: 'ordre-de-passage', nom: 'Ordre de passage', immediat: true, effet: 'Tu choisis tout de suite à quelle place tu plaides.' },
-  { id: 'temoin-surprise', nom: 'Témoin surprise', immediat: true, effet: 'Un adversaire parle 10 secondes en ta faveur juste avant ton tour.' },
-  { id: 'voix-double', nom: 'Voix double', immediat: true, effet: 'Ton vote compte double pour cette manche.' },
-  { id: 'mime', nom: 'Mime', effet: 'Tu défends ta réponse en mimant, sans dire un mot.' },
-  { id: 'ressort', nom: 'Ressort', effet: 'Tu plaides en sautant sur place du début à la fin.' },
-  { id: 'comedie-musicale', nom: 'Comédie musicale', effet: 'Tu plaides en chantant.' },
-  { id: 'robot', nom: 'Robot', effet: 'Tu plaides avec une voix et des gestes de robot.' },
-  { id: 'commentateur', nom: 'Commentateur sportif', effet: 'Tu défends ta réponse comme si tu commentais la fin d’un match.' },
-  { id: 'avocat-du-diable', nom: 'Avocat du diable', effet: 'Tu défends avec le plus grand sérieux la pire réponse possible.' },
-  { id: 'mot-interdit', nom: 'Mot interdit', effet: 'Le joueur à ta droite choisit un mot courant. Si tu le dis, ta plaidoirie s’arrête.' },
-  { id: 'chuchotement', nom: 'Chuchotement', effet: 'Tu plaides à voix basse pendant tout ton tour.' },
-  { id: 'dos-a-la-cour', nom: 'Dos à la cour', effet: 'Tu plaides en tournant le dos aux autres joueurs.' },
+  { id: 'temps-reduit', nom: 'Reduced time', immediat: true, effet: 'You only have 10 seconds instead of 30 to plead.' },
+  { id: 'prolongation', nom: 'Overtime', immediat: true, effet: 'You get 40 seconds instead of 30.' },
+  { id: 'ordre-de-passage', nom: 'Turn order', immediat: true, effet: 'You choose right away when you speak in this round.' },
+  { id: 'temoin-surprise', nom: 'Surprise witness', immediat: true, effet: 'An opponent speaks for 10 seconds in your favour just before your turn.' },
+  { id: 'voix-double', nom: 'Double vote', immediat: true, effet: 'Your vote counts double this round.' },
+  { id: 'mime', nom: 'Mime', effet: 'You defend your answer by miming, without saying a word.' },
+  { id: 'ressort', nom: 'Bounce', effet: 'You plead while jumping on the spot from start to finish.' },
+  { id: 'comedie-musicale', nom: 'Musical', effet: 'You plead by singing.' },
+  { id: 'robot', nom: 'Robot', effet: 'You plead with a robot voice and robot moves.' },
+  { id: 'commentateur', nom: 'Sports commentator', effet: 'You defend your answer as if you were commentating the end of a match.' },
+  { id: 'avocat-du-diable', nom: 'Devil’s advocate', effet: 'You defend the worst possible answer with a completely straight face.' },
+  { id: 'mot-interdit', nom: 'Forbidden word', effet: 'The player on your right chooses a common word. If you say it, your plea stops.' },
+  { id: 'chuchotement', nom: 'Whisper', effet: 'You plead in a whisper for your whole turn.' },
+  { id: 'dos-a-la-cour', nom: 'Back to the court', effet: 'You plead with your back turned to the other players.' },
 ];
 
 export const defi = (id) => DEFIS.find((d) => d.id === id) || null;
 
 /** Nom affiché d'une carte (Défi, Objection ou Point double). */
-const OTHER_CARDS = { objection: 'Objection !', 'point-double': 'Point double' };
+const OTHER_CARDS = { objection: 'Objection!', 'point-double': 'Double point' };
 export const cardName = (id) => defi(id)?.nom ?? OTHER_CARDS[id] ?? id;
 
 /** Visuel final d'une carte : assets/cartes/<id>.jpg */
 export const cardImg = (id, cls = '') =>
-  `<img class="card-img ${cls}" src="assets/cartes/${id}.jpg" alt="Carte ${cardName(id)}" loading="lazy" decoding="async" draggable="false" />`;
+  `<img class="card-img ${cls}" src="assets/cartes/${id}.jpg" alt="${cardName(id)} card" loading="lazy" decoding="async" draggable="false" />`;

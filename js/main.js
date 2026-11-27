@@ -130,7 +130,7 @@ document.addEventListener('submit', (e) => {
   const name = input.value.trim().replace(/\s+/g, ' ');
   if (!name || S.players.length >= MAX_PLAYERS) return;
   if (S.players.some((p) => p.name.toLowerCase() === name.toLowerCase())) {
-    input.setCustomValidity('Ce prénom est déjà inscrit');
+    input.setCustomValidity('This name is already taken');
     input.reportValidity();
     return;
   }

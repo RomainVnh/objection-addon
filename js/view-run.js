@@ -11,9 +11,9 @@ import { topbar, menuBtn } from './view-common.js';
 const segCard = (seg) => (seg.kind === 'witness' ? 'temoin-surprise' : pleaDefi(seg)?.id);
 
 function segLabel(seg) {
-  if (seg.kind === 'witness') return `Témoin surprise pour ${nameOf(seg.for)}`;
+  if (seg.kind === 'witness') return `Surprise witness for ${nameOf(seg.for)}`;
   const d = pleaDefi(seg);
-  return d ? `Défi : ${esc(d.nom)}` : 'Plaidoirie';
+  return d ? `Challenge: ${esc(d.nom)}` : 'Plea';
 }
 
 /** Cadran du chrono : graduations, filet intérieur, arc de temps. */
@@ -35,12 +35,12 @@ function stage(r, seg, next) {
   switch (r.sub) {
     case 'countdown':
       return [
-        `<div class="eyebrow">${seg.kind === 'witness' ? 'Témoin surprise' : r.seg === 0 ? 'Premier à plaider' : 'Au tour de'}</div>
+        `<div class="eyebrow">${seg.kind === 'witness' ? 'Surprise witness' : r.seg === 0 ? 'First to plead' : 'Next up'}</div>
          <div class="speaker sm logo-text">${nameOf(seg.speaker)}</div>
-         <div class="speaker-sub">${seg.kind === 'witness' ? `${secs(seg.total)} s en faveur de ${nameOf(seg.for)}` : `${secs(seg.total)} secondes · ${segLabel(seg)}`}</div>
+         <div class="speaker-sub">${seg.kind === 'witness' ? `${secs(seg.total)} s in favour of ${nameOf(seg.for)}` : `${secs(seg.total)} seconds · ${segLabel(seg)}`}</div>
          ${card ? cardImg(card, 'cd-card') : ''}
          <div id="cd" class="cd-box"></div>`,
-        controls(`<button class="btn block" data-act="skip">Passer le décompte</button>`),
+        controls(`<button class="btn block" data-act="skip">Skip the countdown</button>`),
       ];
     case 'intro':
       return [
@@ -57,26 +57,26 @@ function stage(r, seg, next) {
              : `<span class="tag line">${segLabel(seg)}</span>`
          }${seg.mods.map((m) => `<span class="tag">${m}</span>`).join('')}</div>
          <div class="timer-wrap" id="tw">${dial}<span class="timer-num logo-text" id="tnum">${secs(remaining())}</span></div>
-         <div class="next-up">${next ? `Ensuite <strong>${nameOf(next.speaker)}</strong>${next.kind === 'witness' ? ' (témoin)' : ''}` : 'Dernière plaidoirie de la manche'}</div>`,
+         <div class="next-up">${next ? `Then <strong>${nameOf(next.speaker)}</strong>${next.kind === 'witness' ? ' (witness)' : ''}` : 'Last plea of the round'}</div>`,
         controls(`
-          <button class="btn primary big block" data-act="skip">${ICON.check} J'ai fini</button>
-          ${seg.kind === 'plea' ? `<div class="pair"><button class="btn small" data-act="open-sheet" data-sheet="cards">Carte temps</button><button class="btn small" data-act="fail">Défi raté</button></div>` : ''}`),
+          <button class="btn primary big block" data-act="skip">${ICON.check} I’m done</button>
+          ${seg.kind === 'plea' ? `<div class="pair"><button class="btn small" data-act="open-sheet" data-sheet="cards">Time card</button><button class="btn small" data-act="fail">Challenge failed</button></div>` : ''}`),
       ];
     case 'end': {
-      const txt = { time: 'Temps écoulé&nbsp;!', done: 'Plaidoirie terminée', fail: 'Défi raté&nbsp;!' }[seg.result] || 'Terminé';
+      const txt = { time: 'Time’s up!', done: 'Plea over', fail: 'Challenge failed!' }[seg.result] || 'Done';
       return [
         `${seg.result === 'time' ? ICON.gavelBig : ''}
          ${bigBand(txt)}
-         <div class="speaker-sub fade-late">${nameOf(seg.speaker)} · ${secs(seg.spoke)} s sur ${secs(allowed(seg))} s</div>`,
-        controls(`<button class="btn block" data-act="skip">${next ? 'Joueur suivant' : 'Continuer'}</button>`),
+         <div class="speaker-sub fade-late">${nameOf(seg.speaker)} · ${secs(seg.spoke)} s of ${secs(allowed(seg))} s</div>`,
+        controls(`<button class="btn block" data-act="skip">${next ? 'Next player' : 'Continue'}</button>`),
       ];
     }
     case 'finale':
       return [
         `${ICON.gavelBig}
-         ${bigBand('Fin des plaidoiries&nbsp;!')}
-         <div class="speaker-sub fade-late">La cour se retire pour délibérer…</div>`,
-        controls(`<button class="btn block" data-act="skip">Passer au vote</button>`),
+         ${bigBand('End of the pleas!')}
+         <div class="speaker-sub fade-late">The court withdraws to deliberate…</div>`,
+        controls(`<button class="btn block" data-act="skip">Go to the vote</button>`),
       ];
     default:
       return ['', controls()];
@@ -88,14 +88,14 @@ export function runView() {
   const seg = r.segs[r.seg];
   const paused = r.paused != null;
   const [center, buttons] = stage(r, seg, r.segs[r.seg + 1]);
-  const pauseBtn = `<button class="icon-btn" data-act="${paused ? 'resume' : 'pause'}" aria-label="${paused ? 'Reprendre' : 'Pause'}">${paused ? ICON.play : ICON.pause}</button>`;
-  const top = topbar(`Manche ${r.no} · ${r.seg + 1} / ${r.segs.length}`, diamonds(r.segs.length, r.seg), pauseBtn, menuBtn('run-menu'), 'stage-top');
+  const pauseBtn = `<button class="icon-btn" data-act="${paused ? 'resume' : 'pause'}" aria-label="${paused ? 'Resume' : 'Pause'}">${paused ? ICON.play : ICON.pause}</button>`;
+  const top = topbar(`Round ${r.no} · ${r.seg + 1} / ${r.segs.length}`, diamonds(r.segs.length, r.seg), pauseBtn, menuBtn('run-menu'), 'stage-top');
   const pauseLayer = paused
     ? `<div class="pause-layer"><div class="inner">
-         <div class="band"><span class="logo-text" style="font-size:clamp(46px,14vw,96px)">Pause</span></div>
-         <p class="muted" style="margin-top:10px">${nameOf(seg.speaker)} · ${secs(remaining())} s restantes</p>
-         <button class="btn primary big block" data-act="resume">${ICON.play} Reprendre</button>
-         <button class="btn link" data-act="open-sheet" data-sheet="run-menu">Options de la manche</button>
+         <div class="band"><span class="logo-text" style="font-size:clamp(46px,14vw,96px)">Paused</span></div>
+         <p class="muted" style="margin-top:10px">${nameOf(seg.speaker)} · ${secs(remaining())} s left</p>
+         <button class="btn primary big block" data-act="resume">${ICON.play} Resume</button>
+         <button class="btn link" data-act="open-sheet" data-sheet="run-menu">Round options</button>
        </div></div>`
     : '';
   return `<section class="stage" data-sub="${r.sub}">${top}<div class="stage-center">${center}</div>${buttons}</section>${pauseLayer}`;

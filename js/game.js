@@ -221,7 +221,7 @@ export function applyObjection(by, target) {
   delete r.witness[target];
   for (const k of Object.keys(r.witness)) if (r.witness[k] === target) delete r.witness[k];
   commit();
-  playObjectionFx(`${player(target).name} est réduit au silence`, 'Pas de plaidoirie, pas de vote, aucune voix possible.');
+  playObjectionFx(`${player(target).name} is silenced`, 'No plea, no vote, cannot receive votes.');
 }
 
 export function cancelObjection() {

@@ -122,26 +122,26 @@ export const ACTS = {
     if (round().sub !== 'talk') return;
     const seg = currentSeg();
     const d = game.pleaDefi(seg);
-    seg.mods.push('Défi raté');
+    seg.mods.push('Challenge failed');
     game.finishTalk('fail');
     commit();
-    if (d) playCardFx({ card: d.id, motion: 'fail', tone: 'red', stamp: 'Raté&nbsp;!', line: `${nameOf(seg.speaker)} a raté son défi`, sub: 'La plaidoirie s’arrête tout de suite.', shake: true, vibrate: [90, 60, 90], ms: 1900 });
+    if (d) playCardFx({ card: d.id, motion: 'fail', tone: 'red', stamp: 'Failed!', line: `${nameOf(seg.speaker)} failed their challenge`, sub: 'The plea stops right away.', shake: true, vibrate: [90, 60, 90], ms: 1900 });
   },
   'card-reduce'() {
     const seg = currentSeg();
     const s = S.settings.reducedSeconds;
     game.setRemaining(Math.min(game.remaining(), s * 1000));
-    seg.mods.push('Temps réduit');
+    seg.mods.push('Reduced time');
     done();
-    playCardFx({ card: 'temps-reduit', motion: 'drop', tone: 'hot', badge: `${s} s`, line: `Plus que ${s} secondes pour ${nameOf(seg.speaker)} !`, sound: 'timeDown', shake: true, vibrate: [60, 40, 120], ms: 1800 });
+    playCardFx({ card: 'temps-reduit', motion: 'drop', tone: 'hot', badge: `${s} s`, line: `Only ${s} seconds left for ${nameOf(seg.speaker)}!`, sound: 'timeDown', shake: true, vibrate: [60, 40, 120], ms: 1800 });
   },
   'card-prolong'() {
     const seg = currentSeg();
     const extra = S.settings.prolongSeconds - S.settings.pleaSeconds;
     game.setRemaining(game.remaining() + extra * 1000);
-    seg.mods.push('Prolongation');
+    seg.mods.push('Overtime');
     done();
-    playCardFx({ card: 'prolongation', motion: 'grow', badge: `+${extra} s`, line: `${nameOf(seg.speaker)} gagne ${extra} secondes`, sound: 'powerUp', ms: 1800 });
+    playCardFx({ card: 'prolongation', motion: 'grow', badge: `+${extra} s`, line: `${nameOf(seg.speaker)} gets ${extra} more seconds`, sound: 'powerUp', ms: 1800 });
   },
   'abort-run'() {
     game.stopRun();
@@ -176,8 +176,8 @@ export const ACTS = {
       card: 'point-double',
       motion: 'double',
       badge: '×2',
-      line: ui.voteSel ? `${voter} donne 2 voix à ${nameOf(ui.voteSel)}` : `${voter} joue la carte Point double`,
-      sub: 'Son vote compte pour 2 voix au lieu d’une.',
+      line: ui.voteSel ? `${voter} gives 2 votes to ${nameOf(ui.voteSel)}` : `${voter} plays the Double point card`,
+      sub: 'Their vote counts as 2 votes instead of 1.',
       sound: 'double',
       vibrate: [50, 60, 50],
     });
