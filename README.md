@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/dos-de-carte.jpg" alt="Logo Objection!" width="260" />
+</p>
+
 # Objection ! · Chrono du tribunal
 
 Application compagnon du jeu de cartes **Objection !** (règles v2), en HTML, CSS et JavaScript natifs, sans aucune dépendance ni étape de compilation.
